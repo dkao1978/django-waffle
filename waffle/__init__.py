@@ -3,7 +3,6 @@ import random
 
 from waffle.utils import get_setting, keyfmt
 
-
 VERSION = (0, 10, 1)
 __version__ = '.'.join(map(str, VERSION))
 
@@ -88,6 +87,11 @@ def flag_is_active(request, flag_name):
     for group in flag_groups:
         if group in user_groups:
             return True
+
+    store = request.store
+    flag_stores = flag.stores.all()
+    if store in flag_stores:
+        return True
 
     if flag.percent and flag.percent > 0:
         if not hasattr(request, 'waffles'):

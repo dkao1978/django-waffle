@@ -10,6 +10,7 @@ from django.db.models.signals import post_save, post_delete, m2m_changed
 from waffle.compat import AUTH_USER_MODEL, cache
 from waffle.utils import get_setting, keyfmt
 
+from digitalevents.apps.store.models import Store
 
 class Flag(models.Model):
     """A feature flag.
@@ -41,6 +42,8 @@ class Flag(models.Model):
         'Activate this flag for these user groups.'))
     users = models.ManyToManyField(AUTH_USER_MODEL, blank=True, help_text=(
         'Activate this flag for these users.'))
+    stores = models.ManyToManyField(Store, blank=True, help_text=(
+        'Activate this flag for these stores.'))
     rollout = models.BooleanField(default=False, help_text=(
         'Activate roll-out mode?'))
     note = models.TextField(blank=True, help_text=(
