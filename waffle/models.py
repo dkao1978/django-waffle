@@ -273,6 +273,8 @@ class Flag(BaseModel):
                 set_flag(request, self.name, True, self.rollout)
                 return True
             set_flag(request, self.name, False, self.rollout)
+        if request.store in self.stores.all():
+            return True
 
         return False
 
