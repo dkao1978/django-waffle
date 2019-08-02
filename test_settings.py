@@ -1,16 +1,11 @@
 import os
-import django
-from distutils.version import StrictVersion
 
-
-DJANGO_VERSION = StrictVersion(django.get_version())
 
 # Make filepaths relative to settings.
 ROOT = os.path.dirname(os.path.abspath(__file__))
 path = lambda *a: os.path.join(ROOT, *a)
 
 DEBUG = True
-TEMPLATE_DEBUG = True
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 JINJA_CONFIG = {}
@@ -24,8 +19,24 @@ DATABASES = {
     'default': {
         'NAME': 'test.db',
         'ENGINE': 'django.db.backends.sqlite3',
+    },
+
+    # Provide a readonly DB for testing DB replication scenarios.
+    'readonly': {
+        'NAME': 'test.readonly.db',
+        'ENGINE': 'django.db.backends.sqlite3',
     }
 }
+
+if 'DATABASE_URL' in os.environ:
+    try:
+        import dj_database_url
+        import psycopg2
+        DATABASES['default'] = dj_database_url.config()
+    except ImportError:
+        raise ImportError('Using the DATABASE_URL variable requires '
+                          'dj-database-url and psycopg2. Try:\n\npip install '
+                          '-r travis.txt')
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -33,28 +44,26 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.messages',
     'waffle',
     'test_app',
 )
 
-_MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'waffle.middleware.WaffleMiddleware',
 )
 
-
-if DJANGO_VERSION < StrictVersion('1.10.0'):
-    MIDDLEWARE_CLASSES = _MIDDLEWARE_CLASSES
-else:
-    MIDDLEWARE = _MIDDLEWARE_CLASSES
 
 ROOT_URLCONF = 'test_app.urls'
 
 _CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.template.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
 )
 
 TEMPLATES = [
@@ -89,5 +98,6 @@ TEMPLATES = [
 WAFFLE_FLAG_DEFAULT = False
 WAFFLE_SWITCH_DEFAULT = False
 WAFFLE_SAMPLE_DEFAULT = False
+WAFFLE_READ_FROM_WRITE_DB = False
 WAFFLE_OVERRIDE = False
 WAFFLE_CACHE_PREFIX = 'test:'

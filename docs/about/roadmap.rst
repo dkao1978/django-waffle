@@ -111,7 +111,7 @@ potentially *gross*. (Then again, if it's gross underneath but exposes a
 pleasant UI, that's not ideal, but it's OK.)
 
 The other big sticking point is that this won't be a simple ``ALTER
-TABLE wafle_flag ADD COLUMN`` upgrade; things will break. 
+TABLE wafle_flag ADD COLUMN`` upgrade; things will break.
 
 I've been thinking what Waffle would be like if I designed it from
 scratch today with slightly different goals, like extensibility. Beyond
@@ -119,10 +119,11 @@ scratch today with slightly different goals, like extensibility. Beyond
 kind of overhaul.
 
 
-.. _milestones: https://github.com/jsocol/django-waffle/milestones
-.. _0.10.2: https://github.com/jsocol/django-waffle/milestones/0.10.2
-.. _0.11: https://github.com/jsocol/django-waffle/milestones/0.11
-.. _0.11.x: https://github.com/jsocol/django-waffle/milestones/0.11.x
-.. _0.12: https://github.com/jsocol/django-waffle/milestones/0.12
-.. _0.13: https://github.com/jsocol/django-waffle/milestones/0.13
+.. _milestones: https://github.com/django-waffle/django-waffle/milestones
+.. _0.10.2: https://github.com/django-waffle/django-waffle/milestones/0.10.2
+.. _0.11: https://github.com/django-waffle/django-waffle/milestones/0.11
+.. _0.11.x: https://github.com/django-waffle/django-waffle/milestones/0.11.x
+.. _0.12: https://github.com/django-waffle/django-waffle/milestones/0.12
+.. _0.13: https://github.com/django-waffle/django-waffle/milestones/0.13
 .. _Gargoyle: https://github.com/disqus/gargoyle
+.. _django-jinja: https://niwinz.github.io/django-jinja/latest/
