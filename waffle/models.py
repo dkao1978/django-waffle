@@ -18,7 +18,14 @@ logger = logging.getLogger('waffle')
 
 CACHE_EMPTY = '-'
 
-from digitalevents.apps.store.models import Store
+from importlib import import_module
+
+root_dir = str(settings.ROOT_DIR).split("/")
+
+if root_dir[-1] == "rarity":
+    from rarity.store.models import Store
+else:
+    from digitalevents.apps.store.models import Store
 
 @python_2_unicode_compatible
 class BaseModel(models.Model):
