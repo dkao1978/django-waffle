@@ -2,6 +2,18 @@
 Waffle Changelog
 ================
 
+v0.19.0
+=======
+- Made tests for jinja2 optional while waiting for django-jinja to be compatible with django 3.0.
+
+v0.18.0
+=======
+- Updated `MIDDLEWARE` setting name for Django 1.10+
+- Improved cache performance for `is_active_for_user`
+- Corrected log formatting
+- Added log entries for admin quick link actions
+- Added permissions for admin actions
+
 v0.17.0
 =======
 - Fixed documentation issues

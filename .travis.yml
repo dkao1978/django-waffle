@@ -10,6 +10,7 @@ python:
   - "3.5"
   - "3.6"
   - "3.7"
+  - "3.8"
 
 matrix:
   include:
@@ -26,7 +27,7 @@ services:
   postgresql
 
 addons:
-  postgresql: "9.4"
+  postgresql: "9.6"
 
 before_script:
   - psql -c 'create database waffle_test;' -U postgres
